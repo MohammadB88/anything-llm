@@ -173,5 +173,6 @@ HEALTHCHECK --interval=1m --timeout=10s --start-period=1m \
   CMD /bin/bash /usr/local/bin/docker-healthcheck.sh || exit 1
 
 # Run the server
-# CMD ["sh", "-c", "tail -f /dev/null"] # For development: keep container open
-ENTRYPOINT ["/bin/bash", "/usr/local/bin/docker-entrypoint.sh"]
+# For development: keep container open
+CMD ["sh", "-c", "tail -f /dev/null"] 
+# ENTRYPOINT ["/bin/bash", "/usr/local/bin/docker-entrypoint.sh"]
