@@ -37,9 +37,9 @@ RUN groupadd -g "$ARG_GID" anythingllm && \
     mkdir -p /app/frontend/ /app/server/ /app/collector/ && chown -R anythingllm:anythingllm /app
 
 # Copy docker helper scripts
-COPY ./docker-entrypoint.sh /usr/local/bin/
-COPY ./docker-healthcheck.sh /usr/local/bin/
-COPY --chown=anythingllm:anythingllm ./.env.example /app/server/.env
+COPY ./docker/docker-entrypoint.sh /usr/local/bin/
+COPY ./docker/docker-healthcheck.sh /usr/local/bin/
+COPY --chown=anythingllm:anythingllm ./docker/.env.example /app/server/.env
 
 # Ensure the scripts are executable
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
@@ -97,9 +97,9 @@ RUN groupadd -g "$ARG_GID" anythingllm && \
     mkdir -p /app/frontend/ /app/server/ /app/collector/ && chown -R anythingllm:anythingllm /app
 
 # Copy docker helper scripts
-COPY ./docker-entrypoint.sh /usr/local/bin/
-COPY ./docker-healthcheck.sh /usr/local/bin/
-COPY --chown=anythingllm:anythingllm ./.env.example /app/server/.env
+COPY ./docker/docker-entrypoint.sh /usr/local/bin/
+COPY ./docker/docker-healthcheck.sh /usr/local/bin/
+COPY --chown=anythingllm:anythingllm ./docker/.env.example /app/server/.env
 
 # Ensure the scripts are executable
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
@@ -118,7 +118,7 @@ WORKDIR /app
 
 # Install & Build frontend layer
 FROM build AS frontend-build
-COPY --chown=anythingllm:anythingllm ../frontend /app/frontend/
+COPY --chown=anythingllm:anythingllm ./frontend /app/frontend/
 WORKDIR /app/frontend
 RUN yarn install --network-timeout 100000 && yarn cache clean
 RUN yarn build && \
